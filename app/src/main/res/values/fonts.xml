@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Montserrat">
+        <item>regular|fonts/Montserrat/Montserrat-Regular.ttf</item>
+        <item>light|fonts/Montserrat/Montserrat-Light.ttf</item>
+        <item>black|fonts/Montserrat/Montserrat-Black.ttf</item>
+        <item>bold|fonts/Montserrat/Montserrat-Bold.ttf</item>
+    </string-array>
+</resources>
