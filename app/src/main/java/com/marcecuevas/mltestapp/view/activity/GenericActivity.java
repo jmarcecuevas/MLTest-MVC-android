@@ -12,10 +12,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toolbar;
 
 import com.marcecuevas.mltestapp.R;
 import com.marcecuevas.mltestapp.model.MLError;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public abstract class GenericActivity extends AppCompatActivity {
@@ -29,6 +31,19 @@ public abstract class GenericActivity extends AppCompatActivity {
     }
 
     protected abstract void init();
+
+//    Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+//    setSupportActionBar(myToolbar);
+//    getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        assert myToolbar != null;
+//        myToolbar.setLogo(R.mipmap.logo_big);
+//
+//    TextView usernameField = (TextView) findViewById(R.id.username);
+//        try {
+//        usernameField.setText(User.getInstance().getUsername());
+//    } catch (JSONException e) {
+//        e.printStackTrace();
+//    }
 
     protected abstract int getFragmentLayoutID();
 

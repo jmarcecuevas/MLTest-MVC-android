@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MLTestApp</string>
+    <string name="toolbar_how_much">¿Cuánto querés pagar?</string>
+    <string name="continue_label">Continuar</string>
+    <string name="toolbar_payment_method">¿Con cuál medio de pago?</string>
 </resources>
