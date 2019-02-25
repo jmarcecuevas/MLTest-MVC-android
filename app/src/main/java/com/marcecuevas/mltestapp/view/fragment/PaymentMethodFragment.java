@@ -31,6 +31,8 @@ public class PaymentMethodFragment extends GenericFragment implements PaymentMet
     @BindView(R.id.totalAmountTV)
     protected TextView totalAmountTV;
 
+    private String totalLabel;
+
     private PaymentMethodAdapter adapter;
 
     @Override
@@ -40,12 +42,14 @@ public class PaymentMethodFragment extends GenericFragment implements PaymentMet
 
     @Override
     protected void init() {
+        loadExtra();
+
         totalTV.setText(getString(R.string.total_label));
         totalTV.setTextSize(14);
         totalTV.setTextColor(getResources().getColor(R.color.colorDark));
         MLFont.applyFont(getContext(),totalTV, MLFontVariable.light);
 
-        totalAmountTV.setText("$5000");
+        totalAmountTV.setText("$" + totalLabel);
         totalAmountTV.setTextSize(16);
         totalAmountTV.setTextColor(getResources().getColor(R.color.colorDark));
         MLFont.applyFont(getContext(),totalAmountTV,MLFontVariable.bold);
@@ -76,6 +80,13 @@ public class PaymentMethodFragment extends GenericFragment implements PaymentMet
     @Override
     public void onPaymentMethodSelected(PaymentMethodDTO paymentMethod) {
         Intent intent = new Intent(getContext(), BankActivity.class);
+        intent.putExtra("PAYMENT_METHOD_ID",paymentMethod.getId());
         startActivity(intent);
+    }
+
+    private void loadExtra(){
+        if(getActivity() != null && getActivity().getIntent() != null){
+            totalLabel = getActivity().getIntent().getStringExtra("AMOUNT");
+        }
     }
 }

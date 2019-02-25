@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.PaymentMethodActivity" />
-        <activity android:name=".view.activity.BankActivity"></activity>
+        <activity android:name=".view.activity.BankActivity" />
+        <activity android:name=".view.activity.DuesSelectorActivity"></activity>
     </application>
 
 </manifest>

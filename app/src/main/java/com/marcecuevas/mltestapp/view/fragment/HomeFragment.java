@@ -37,7 +37,10 @@ public class HomeFragment extends GenericFragment {
 
     @OnClick(R.id.continueBTN)
     public void onClick(View view){
-        Intent intent = new Intent(getContext(), PaymentMethodActivity.class);
-        startActivity(intent);
+        if(!amountET.getText().toString().isEmpty()) {
+            Intent intent = new Intent(getContext(), PaymentMethodActivity.class);
+            intent.putExtra("AMOUNT",amountET.getText().toString());
+            startActivity(intent);
+        }
     }
 }

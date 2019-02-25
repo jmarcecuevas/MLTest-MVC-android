@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.marcecuevas.mltestapp.model.MLError;
 import com.marcecuevas.mltestapp.model.MLResultListener;
+import com.marcecuevas.mltestapp.model.dto.BankDTO;
 import com.marcecuevas.mltestapp.model.dto.PaymentMethodDTO;
 
 import java.util.List;
@@ -35,10 +36,31 @@ public class PaymentDAO extends GenericDAO {
         },getRetrofit()));
     }
 
+    public void banks(final MLResultListener<List<BankDTO>> listener, String paymentMethodID){
+        PaymentREST paymentREST = getRetrofit().create(PaymentREST.class);
+        Call<List<BankDTO>> call = paymentREST.banks(getPublicKey(),paymentMethodID);
+
+        call.enqueue(new MLCallback<>(new MLResultListener<List<BankDTO>>() {
+            @Override
+            public void success(List<BankDTO> result) {
+                listener.success(result);
+            }
+
+            @Override
+            public void error(MLError error) {
+                listener.error(error);
+            }
+        },getRetrofit()));
+    }
+
 
     private interface PaymentREST {
 
         @GET("payment_methods")
         Call<List<PaymentMethodDTO>> paymentMethods(@Query("public_key") String publicKey);
+
+        @GET("payment_methods/card_issuers")
+        Call<List<BankDTO>> banks(@Query("public_key") String publicKey,
+                                                    @Query("payment_method_id") String paymentMethodID);
     }
 }

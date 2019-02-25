@@ -15,75 +15,40 @@ import com.marcecuevas.mltestapp.R;
 import com.marcecuevas.mltestapp.model.dto.PaymentMethodDTO;
 import com.marcecuevas.mltestapp.utils.MLFont;
 import com.marcecuevas.mltestapp.utils.MLFontVariable;
+import com.marcecuevas.mltestapp.view.adapter.viewholder.SimpleViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdapter
-        .PaymentMethodViewHolder> {
+public class PaymentMethodAdapter extends SimpleImageTextAdapter<PaymentMethodDTO,PaymentMethodAdapter.PaymentMethodViewHolder> {
 
-    private Context context;
     private Listener listener;
-    private List<PaymentMethodDTO> items;
 
-    public PaymentMethodAdapter(Context context,Listener listener){
-        this.context = context;
+    public PaymentMethodAdapter(Context context, Listener listener) {
+        super(context);
         this.listener = listener;
-        this.items = new ArrayList<>();
-    }
-
-    public void update(List<PaymentMethodDTO> items){
-        this.items = items;
-        notifyDataSetChanged();
-    }
-
-    @NonNull
-    @Override
-    public PaymentMethodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_payment_method,parent,false);
-        return new PaymentMethodViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PaymentMethodViewHolder holder, int position) {
-        holder.bind(items.get(position));
+    PaymentMethodViewHolder getViewHolder(View view) {
+        return new PaymentMethodViewHolder(context,view);
     }
 
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
+    class PaymentMethodViewHolder extends SimpleViewHolder<PaymentMethodDTO> implements View.OnClickListener {
 
-
-    class PaymentMethodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        private TextView methodNameTV;
-        private ImageView methodImageView;
-
-        PaymentMethodViewHolder(View itemView) {
-            super(itemView);
-
-            methodNameTV = itemView.findViewById(R.id.methodNameTV);
-            methodImageView = itemView.findViewById(R.id.methodImageView);
-
+        PaymentMethodViewHolder(Context context, View itemView) {
+            super(context, itemView);
             itemView.setOnClickListener(this);
-
-            setupViews();
         }
 
-        void bind(PaymentMethodDTO item){
+        @Override
+        public void bind(PaymentMethodDTO item) {
             if(item.getThumbnail() != null){
-                Glide.with(context).load(item.getThumbnail()).into(methodImageView);
+                Glide.with(context).load(item.getThumbnail()).into(imageView);
             }
             if(item.getName() != null){
-                methodNameTV.setText(item.getName());
+                titleTV.setText(item.getName());
             }
-        }
-
-        private void setupViews(){
-            methodNameTV.setTextSize(14);
-            methodNameTV.setTextColor(Color.BLACK);
-            MLFont.applyFont(context,methodNameTV, MLFontVariable.light);
         }
 
         @Override
@@ -93,6 +58,7 @@ public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdap
                         getLayoutPosition()));
             }
         }
+
     }
 
     public interface Listener {
