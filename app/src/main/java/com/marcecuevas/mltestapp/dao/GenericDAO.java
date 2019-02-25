@@ -120,7 +120,11 @@ public class GenericDAO {
 
     @NonNull
     protected String getBaseURL() {
-        return "https://reqres.in/api/";
+        return "https://api.mercadopago.com/v1/";
+    }
+
+    protected String getPublicKey(){
+        return "444a9ef5-8a6b-429f-abdf-587639155d88";
     }
 
     public Retrofit getRetrofit() {

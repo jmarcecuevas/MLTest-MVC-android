@@ -3,4 +3,8 @@
     <string name="toolbar_how_much">¿Cuánto querés pagar?</string>
     <string name="continue_label">Continuar</string>
     <string name="toolbar_payment_method">¿Con cuál medio de pago?</string>
+    <string name="toolbar_bank">¿Con cuál banco?</string>
+    <string name="no_internet">No tienes internet</string>
+    <string name="error">ERROR</string>
+    <string name="total_label">Total a pagar</string>
 </resources>
