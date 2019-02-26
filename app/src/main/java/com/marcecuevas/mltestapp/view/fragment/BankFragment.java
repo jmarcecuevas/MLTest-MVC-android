@@ -69,7 +69,7 @@ public class BankFragment extends GenericFragment implements BankAdapter.Listene
 
             @Override
             public void error(MLError error) {
-                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                showErrorMessage(error);
             }
         },selectionModel.getPaymentID());
     }

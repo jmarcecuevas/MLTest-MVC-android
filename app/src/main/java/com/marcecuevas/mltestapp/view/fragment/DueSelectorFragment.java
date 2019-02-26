@@ -81,7 +81,7 @@ public class DueSelectorFragment extends GenericFragment implements DetailDialog
 
             @Override
             public void error(MLError error) {
-
+                showErrorMessage(error);
             }
         },selectionModel.getTotal(),selectionModel.getPaymentID(),
                 selectionModel.getBankID());

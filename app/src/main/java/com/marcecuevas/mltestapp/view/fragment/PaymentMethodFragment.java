@@ -73,8 +73,7 @@ public class PaymentMethodFragment extends GenericFragment implements PaymentMet
 
             @Override
             public void error(MLError error) {
-                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG)
-                        .show();
+                showErrorMessage(error);
             }
         });
     }

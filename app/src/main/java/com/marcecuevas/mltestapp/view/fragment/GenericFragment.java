@@ -19,6 +19,7 @@ import com.marcecuevas.mltestapp.model.MLError;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 
@@ -89,5 +90,19 @@ public abstract class GenericFragment extends Fragment {
         t.replace(R.id.fragment, myNewFragment, newFragment);
         t.commit();
         return myNewFragment;
+    }
+
+    protected void showErrorMessage(MLError error){
+        new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                .setTitle(error.getTitle())
+                .setMessage(error.getMessage())
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+
     }
 }
