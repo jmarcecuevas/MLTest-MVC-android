@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MLTestApp</string>
+    <string name="app_name">MLTestMVC</string>
     <string name="toolbar_how_much">¿Cuánto querés pagar?</string>
     <string name="continue_label">Continuar</string>
     <string name="finish_label">Finalizar</string>
