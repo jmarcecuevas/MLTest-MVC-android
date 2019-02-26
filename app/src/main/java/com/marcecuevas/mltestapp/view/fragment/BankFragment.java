@@ -1,9 +1,13 @@
 package com.marcecuevas.mltestapp.view.fragment;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.marcecuevas.mltestapp.R;
 import com.marcecuevas.mltestapp.controller.PaymentController;
 import com.marcecuevas.mltestapp.model.MLError;
@@ -21,6 +25,15 @@ public class BankFragment extends GenericFragment implements BankAdapter.Listene
 
     @BindView(R.id.banksRV)
     protected RecyclerView methodsRV;
+
+    @BindView(R.id.emptyLottieView)
+    protected LottieAnimationView emptyLottieView;
+
+    @BindView(R.id.lottieAnimation)
+    protected LottieAnimationView lottieAnimation;
+
+    @BindView(R.id.container)
+    protected ConstraintLayout container;
 
     private BankAdapter adapter;
     private SelectionModel selectionModel;
@@ -46,7 +59,12 @@ public class BankFragment extends GenericFragment implements BankAdapter.Listene
         controller.banks(new MLResultListener<List<BankDTO>>() {
             @Override
             public void success(List<BankDTO> result) {
-                adapter.update(result);
+                if(result.isEmpty()){
+                    showEmptyState();
+                }else{
+                    lottieAnimation.setVisibility(View.VISIBLE);
+                    adapter.update(result);
+                }
             }
 
             @Override
@@ -54,6 +72,11 @@ public class BankFragment extends GenericFragment implements BankAdapter.Listene
                 Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
             }
         },selectionModel.getPaymentID());
+    }
+
+    private void showEmptyState() {
+        container.setVisibility(View.GONE);
+        emptyLottieView.setVisibility(View.VISIBLE);
     }
 
     private void loadExtras(){
