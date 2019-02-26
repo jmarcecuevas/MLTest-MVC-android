@@ -5,8 +5,9 @@
     <string name="finish_label">Finalizar</string>
     <string name="toolbar_payment_method">¿Con cuál medio de pago?</string>
     <string name="toolbar_bank">¿Con cuál banco?</string>
-    <string name="toolbar_dues_amount">¿En cuántas cuotas desea pagar?</string>
+    <string name="toolbar_dues_amount">¿En cuántas cuotas?</string>
     <string name="no_internet">No tienes internet</string>
     <string name="error">ERROR</string>
     <string name="total_label">Total a pagar</string>
+    <string name="payment_detail">Detalles del pago</string>
 </resources>

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import com.marcecuevas.mltestapp.R;
+import com.marcecuevas.mltestapp.model.SelectionModel;
 import com.marcecuevas.mltestapp.utils.MLFont;
 import com.marcecuevas.mltestapp.utils.MLFontVariable;
 import com.marcecuevas.mltestapp.view.activity.PaymentMethodActivity;
@@ -37,9 +38,11 @@ public class HomeFragment extends GenericFragment {
 
     @OnClick(R.id.continueBTN)
     public void onClick(View view){
+        SelectionModel selection = new SelectionModel();
         if(!amountET.getText().toString().isEmpty()) {
+            selection.setTotal(amountET.getText().toString());
             Intent intent = new Intent(getContext(), PaymentMethodActivity.class);
-            intent.putExtra("AMOUNT",amountET.getText().toString());
+            intent.putExtra("SELECTION_MODEL",selection);
             startActivity(intent);
         }
     }

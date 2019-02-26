@@ -1,5 +1,6 @@
 package com.marcecuevas.mltestapp.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import com.marcecuevas.mltestapp.R;
 import com.marcecuevas.mltestapp.controller.PaymentController;
 import com.marcecuevas.mltestapp.model.MLError;
 import com.marcecuevas.mltestapp.model.MLResultListener;
+import com.marcecuevas.mltestapp.model.SelectionModel;
 import com.marcecuevas.mltestapp.model.dto.PaymentMethodDTO;
 import com.marcecuevas.mltestapp.utils.MLFont;
 import com.marcecuevas.mltestapp.utils.MLFontVariable;
@@ -31,8 +33,7 @@ public class PaymentMethodFragment extends GenericFragment implements PaymentMet
     @BindView(R.id.totalAmountTV)
     protected TextView totalAmountTV;
 
-    private String totalLabel;
-
+    private SelectionModel selectionModel;
     private PaymentMethodAdapter adapter;
 
     @Override
@@ -40,6 +41,7 @@ public class PaymentMethodFragment extends GenericFragment implements PaymentMet
         return R.layout.fragment_payment_method;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void init() {
         loadExtra();
@@ -49,7 +51,7 @@ public class PaymentMethodFragment extends GenericFragment implements PaymentMet
         totalTV.setTextColor(getResources().getColor(R.color.colorDark));
         MLFont.applyFont(getContext(),totalTV, MLFontVariable.light);
 
-        totalAmountTV.setText("$" + totalLabel);
+        totalAmountTV.setText("$" + selectionModel.getTotal());
         totalAmountTV.setTextSize(16);
         totalAmountTV.setTextColor(getResources().getColor(R.color.colorDark));
         MLFont.applyFont(getContext(),totalAmountTV,MLFontVariable.bold);
@@ -79,14 +81,17 @@ public class PaymentMethodFragment extends GenericFragment implements PaymentMet
 
     @Override
     public void onPaymentMethodSelected(PaymentMethodDTO paymentMethod) {
+        selectionModel.setPaymentName(paymentMethod.getName());
+        selectionModel.setPaymentID(paymentMethod.getId());
         Intent intent = new Intent(getContext(), BankActivity.class);
-        intent.putExtra("PAYMENT_METHOD_ID",paymentMethod.getId());
+        intent.putExtra("SELECTION_MODEL",selectionModel);
         startActivity(intent);
     }
 
     private void loadExtra(){
         if(getActivity() != null && getActivity().getIntent() != null){
-            totalLabel = getActivity().getIntent().getStringExtra("AMOUNT");
+            selectionModel = (SelectionModel) getActivity().getIntent().
+                    getSerializableExtra("SELECTION_MODEL");
         }
     }
 }

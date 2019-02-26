@@ -1,5 +1,6 @@
 package com.marcecuevas.mltestapp.view.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -7,7 +8,9 @@ import com.marcecuevas.mltestapp.R;
 import com.marcecuevas.mltestapp.controller.PaymentController;
 import com.marcecuevas.mltestapp.model.MLError;
 import com.marcecuevas.mltestapp.model.MLResultListener;
+import com.marcecuevas.mltestapp.model.SelectionModel;
 import com.marcecuevas.mltestapp.model.dto.BankDTO;
+import com.marcecuevas.mltestapp.view.activity.DuesSelectorActivity;
 import com.marcecuevas.mltestapp.view.adapter.BankAdapter;
 
 import java.util.List;
@@ -20,7 +23,7 @@ public class BankFragment extends GenericFragment implements BankAdapter.Listene
     protected RecyclerView methodsRV;
 
     private BankAdapter adapter;
-    private String paymentMethodID;
+    private SelectionModel selectionModel;
 
     @Override
     protected int getLayout() {
@@ -50,17 +53,22 @@ public class BankFragment extends GenericFragment implements BankAdapter.Listene
             public void error(MLError error) {
                 Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
             }
-        },paymentMethodID);
+        },selectionModel.getPaymentID());
     }
 
     private void loadExtras(){
         if(getActivity() != null && getActivity().getIntent() != null){
-            paymentMethodID = getActivity().getIntent().getStringExtra("PAYMENT_METHOD_ID");
+            selectionModel = (SelectionModel) getActivity().getIntent().
+                    getSerializableExtra("SELECTION_MODEL");
         }
     }
 
     @Override
     public void onBankSelected(BankDTO bank) {
-
+        selectionModel.setBankName(bank.getName());
+        selectionModel.setBankID(bank.getId());
+        Intent intent = new Intent(getContext(), DuesSelectorActivity.class);
+        intent.putExtra("SELECTION_MODEL",selectionModel);
+        startActivity(intent);
     }
 }
